@@ -7,22 +7,22 @@ const body = document.body;
 
 themeBtn.addEventListener("click",()=>{
     console.log("Button is being clicked")
-    body.classlist.toggle ("dark-mode");
+    body.classList.toggle ("dark-mode");
 
     if(currentTheme === "dark")
     {
         // Show light icon
         modeDark.style.display = "none";
         modeLight.style.display = "inline";
-        localStorage.setItem("currentTheme","dark");
-        // currentTheme = "light"
+        localStorage.setItem("currentTheme","light");
+        currentTheme = "light"
     }
     else
     {
         modeLight.style.display = "none";
         modeDark.style.display = "inline";
         // show dark icon switch BG colors
-        localStorage.setItem("currentTheme" ,"light");
-        currentTheme = "light"
+        localStorage.setItem("currentTheme" ,"dark");
+        // currentTheme = "light"
     }
 })
