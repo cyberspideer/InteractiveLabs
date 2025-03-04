@@ -42,3 +42,43 @@ themeBtn.addEventListener("click",()=>{
         // currentTheme = "light"
     }
 })
+const languageSelect = document.querySelector("#language-select");
+const elementToTranslate =  {
+    "title": document.querySelector("h1"),
+    "nav-home": document.querySelector("#nav-home"),
+    "nav-products": document.querySelector("#nav-products"),
+    "nav-about": document.querySelector("#nav-about"),
+    "hero-title": document.querySelector(".hero h2"),
+    "shop-now": document.querySelector(".hero a"),
+    "footer-text": document.querySelector("footer p"),
+    
+};
+
+let currentLanguage = localStorage.getItem("selectedLanguage") || "en"
+    languageSelect.value = currentLanguage;
+
+    async function applyLanguage(lang) {
+        try {
+            const response = await fetch("lang.json");
+            const data = await response.json();
+            const translations = data[lang];
+    
+            elementToTranslate["title"].textContent = translations["title"];
+            elementToTranslate["nav-home"].textContent = translations["home"];
+            elementToTranslate["nav-products"].textContent = translations["products"];
+            elementToTranslate["nav-about"].textContent = translations["about"];
+            elementToTranslate["hero-title"].textContent = translations["welcomeMessage"];
+            elementToTranslate["hero-text"].textContent = translations["shopNow"];
+            elementToTranslate["shop-now"].textContent = translations["shopNow"];
+            elementToTranslate["footer-text"].textContent = translations["footerText"];
+        } catch (error) {
+            console.error("Error loading language file:", error);
+        }
+    }
+     
+    applyLanguage(currentLanguage);
+    languageSelect.addEventListener("change", (event) => {
+    const newLanguage = event.target.value;
+        localStorage.setItem("selectedLanguage", newLanguage);
+        applyLanguage(newLanguage);
+    });
